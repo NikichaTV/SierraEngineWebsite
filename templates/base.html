@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/logos/SierraLogo.svg') }}">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/prism/css/prism-dracula-contrast.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/bootstrap/css/bootstrap.min.css') }}">
+
+    <title>{{ base_title }}</title>
+    <meta name="author" content="{{ base_author }}">
+    <meta name="description" content="{{ base_description }}">
+
+    {% for css_file in base_css_files %}
+        <link rel="stylesheet" href="{{ url_for('static', filename=css_file) }}">
+    {% endfor %}
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <script src="{{ url_for('static', filename='dependencies/jquery/js/jquery.js') }}"></script>
+    {% block body %}{% endblock %}
+    <script src="{{ url_for('static', filename='base/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/prism/js/prism.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='dependencies/fontawesome/js/all.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    {% for js_file in base_js_files %}
+        <script src="{{ url_for('static', filename=js_file) }}"></script>
+    {% endfor %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

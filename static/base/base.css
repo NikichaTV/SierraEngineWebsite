@@ -1,0 +1,11 @@
+.on-top {
+    z-index: 0;
+}
+
+.hide-horizontal-scroll {
+    overflow-x: hidden;
+}
+
+.hide-vertical-scroll {
+    overflow-y: hidden;
+}

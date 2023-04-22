@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pages/shared.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pages/documentation/index.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# --- NAVBAR --- #}
+    <header id="Header" class="fixed-top shadow-sm">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between px-lg-4 px-xl-1">
+            <a href="/static" class="logo d-flex">
+                <img src="static/assets/logos/SierraLogoTextDark.png" alt="Nav Bar Sierra Logo">
+            </a>
+            <nav id="NavBar" class="navbar justify-content-around">
+                <ul>
+                    <li id="MobileNavBarClose"><i class="mobile-navbar-only clickable fa fa-close"></i></li>
+                    <li><a class="nav-link" href="#Top">Home</a></li>
+                    <li><a class="nav-link" href="#about">Features</a></li>
+                    <li><a class="nav-link active" href="#pricing">Documentation</a></li>
+                    <li><a class="nav-link" href="#about">Team</a></li>
+                    <li><a class="nav-link" href="/static"><i class="nav-icon fab fa-circle fa-github"></i><span class="nav-icon-text">Source Code</span></a></li>
+                </ul>
+            </nav>
+            <i id="MobileNavBarOpen" class="fa-solid fa-list-ul"></i>
+        </div>
+    </header>
+    <div class="mb-5 pb-4" id="Top"></div>
+
+    {# --- HERO --- #}
+    <div id="HeroSection" class="text-center position-relative p-5">
+	    <div class="container">
+		    <div id="DocumentationHeading" class="mx-auto">Documentation</div>
+		    <div id="DocumentationSubheading" class="mx-auto">Search through the Sierra API's reference effortlessly.</div>
+		    <div class="pt-4 d-block">
+                 <form id="DocumentationSearchForm" class="mx-auto">
+		            <input id="DocumentationSearchInput" type="text" placeholder="Search the docs..." class="form-control-plaintext" name="search">
+		            <button id="DocumentationSearchButton" type="submit" class="btn" value="DocumentationSearch"><i class="fas fa-search"></i></button>
+		        </form>
+             </div>
+	    </div>
+    </div>
+
+    {# --- CARDS --- #}
+    <div id="CardsSection" class="py-5">
+        <div class="container">
+            <div id="CardsSectionHeading">Got something in mind?</div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-solid fa-file-arrow-down"></i>
+                            </span>
+                            <span class="cards-section-card-title">How to install Sierra?</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/static"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-regular fa-circle-question"></i>
+                            </span>
+                            <span class="cards-section-card-title">How to use Sierra?</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/static"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-regular fa-comments"></i>
+                            </span>
+                            <span class="cards-section-card-title">FAQs</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/static"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-solid fa-toolbox"></i>
+                            </span>
+                            <span class="cards-section-card-title">What is Sierra API?</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/static"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-solid fa-screwdriver-wrench"></i>
+                            </span>
+                            <span class="cards-section-card-title">How to use Sierra API?</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/static"></a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4 col-md-6 mt-3">
+                    <div class="card card-body cards-section-card-base">
+                        <h5 class="cards-section-card-title mb-3">
+                            <span class="me-2">
+                                <i class="cards-section-card-icon fa-solid fa-book"></i>
+                            </span>
+                            <span class="cards-section-card-title">Sierra API Reference</span>
+                        </h5>
+                        <p class="cards-section-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <a class="link-mask" href="/"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# --- COPYRIGHT --- #}
+    <footer id="CopyrightSection" class="section mb-2">
+        Made with <span class="sr-only">love</span><i id="CopyRightIcon" class="fas fa-heart"></i> by <a id="CopyrightLink" href="/static" target="_blank">Nikolay Kanchevski</a>
+    </footer>
+
+    <script src="static/pages/shared.js"></script>
+{% endblock %}

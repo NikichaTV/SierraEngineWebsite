@@ -1,0 +1,133 @@
+body {
+    background-color: var(--main-color);
+}
+
+/* --- HERO --- */
+
+#HeroSection {
+    color: var(--main-text-color);
+    background-color: var(--main-color);
+}
+
+#DocumentationHeading {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+#DocumentationSubheading {
+    font-size: 1rem;
+    font-weight: normal;
+    color: var(--main-text-accent-color);
+}
+
+#DocumentationSearchForm {
+    position: relative;
+    width: 70%;
+}
+
+#DocumentationSearchInput {
+    position: relative;
+    font-size: 0.875rem;
+    border-radius: 0.8rem;
+    padding-right: 2.6rem;
+    padding-left: 1.5rem;
+    height: 2.5rem;
+    transition-duration: 0.15s;
+
+    border-color: solid var(--main-accent-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: var(--main-text-accent-color);
+    background-color: white;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, scale ease-in-out;
+}
+
+#DocumentationSearchInput:focus {
+    border-color: var(--main-text-accent-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+@media (prefers-color-scheme: light) {
+    #DocumentationSearchInput {
+        border-width: 2px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    #DocumentationSearchInput {
+        border-width: 2.5px;
+    }
+}
+
+#DocumentationSearchButton {
+    color: var(--main-text-accent-color);
+    background: none;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 0.1rem;
+    margin-right: 0;
+    transiton: scale ease-in-out 0.15s;
+}
+
+#DocumentationSearchButton:hover {
+    scale: 1.2;
+}
+
+/* --- CARDS SECTION --- */
+
+#CardsSection {
+    background-color: var(--main-color);
+    border-top: var(--border-width) solid var(--main-accent-color);
+    width: 90%;
+    margin-left: 5%;
+}
+
+#CardsSectionHeading {
+    color: var(--main-text-color);
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.cards-section-card-icon {
+    padding: 4px;
+    border-radius: 7px;
+    color: var(--main-interactible-color);
+}
+
+@media (prefers-color-scheme: light) {
+    .cards-section-card-icon {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .cards-section-card-icon {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.cards-section-card-base {
+    height: 100%;
+    transition: scale ease-in-out 0.15s;
+    color: var(--main-text-accent-color);
+    border: var(--border-width) solid var(--main-accent-color);
+    background-color: var(--main-accent-color);
+    border-radius: 0.5rem;
+}
+
+.cards-section-card-base:hover {
+    scale: 1.05;
+}
+
+.cards-section-card-title {
+    font-size: 1.2rem;
+    color: var(--main-text-color);
+}
+
+.cards-section-card-text {
+    color: var(--main-text-accent-color);
+}

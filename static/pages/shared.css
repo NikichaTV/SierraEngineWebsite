@@ -1,0 +1,230 @@
+/* --- VARIABLES --- */
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --main-color: #FFFFFF;
+        --main-accent-color: #F7F7F7;
+
+        --main-text-color: #1B2637;
+        --main-text-accent-color: #88909F;
+
+        --theme-color: white;
+        --main-interactible-color: #5C54F8;
+
+        --border-width: 2px;
+        --transition-duration: 0.3s;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+
+        --main-color: #202125;
+        --main-accent-color: #2A2B2F;
+
+        --main-text-color: #FFFFFF;
+        --main-text-accent-color: #858C9B;
+
+        --theme-color: black;
+        --main-interactible-color: #A5A1F8;
+
+        --border-width: 2px;
+        --transition-duration: 0.3s;
+    }
+}
+
+/* --- HEADER --- */
+
+#Header {
+    transition: all 0.5s;
+    z-index: 1000;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: var(--main-color);
+    border-bottom: solid var(--border-width) var(--main-accent-color);
+}
+
+#Header .logo img {
+    width: 6.6rem;
+    height: 2.2rem;
+}
+
+/* --- NAV BAR --- */
+
+.navbar {
+    padding: 0;
+    right: 0;
+}
+
+.navbar .mobile-navbar-only {
+    display: none;
+}
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+.navbar li {
+    position: relative;
+}
+
+.navbar a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 10px 30px;
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--main-text-accent-color);
+    white-space: nowrap;
+    transition: var(--transition-duration);
+}
+
+.navbar .nav-icon {
+    font-size: 12px;
+    line-height: 0;
+    scale: 2;
+}
+
+.navbar .nav-icon-text {
+    display: none;
+}
+
+.navbar a:hover,
+.navbar li:hover>a,
+.navbar .active,
+.navbar .active {
+    color: var(--main-interactible-color);
+}
+
+#MobileNavBarOpen {
+    color: var(--main-text-accent-color);
+    font-size: 28px;
+    cursor: pointer;
+    margin-top: 7.5px;
+    margin-right: 15px;
+    display: none;
+    transition: 0.5s;
+}
+
+#MobileNavBarOpen:hover,
+#MobileNavBarOpen:active {
+    color: var(--main-interactible-color);
+}
+
+#MobileNavBarOpen.bi-x {
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+    #NavBar {
+        opacity: 0;
+    }
+
+    #MobileNavBarOpen {
+        display: block;
+    }
+    .navbar ul {
+        display: none;
+    }
+}
+
+#MobileNavBarClose {
+    color: var(--main-text-accent-color);
+    text-align: right;
+}
+
+#MobileNavBarClose:hover,
+#MobileNavBarClose:hover {
+    color: var(--main-interactible-color);
+}
+
+.mobile-navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    transition: opacity ease-in-out calc(var(--transition-duration) / 2);
+    z-index: 100;
+}
+
+.mobile-navbar ul {
+    display: block;
+    position: absolute;
+    top: 17.5px;
+    right: 0;
+    bottom: 0;
+    padding: 10px 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--main-color);
+    overflow-y: hidden;
+}
+
+.mobile-navbar li {
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.mobile-navbar a {
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--main-text-accent-color);
+    white-space: nowrap;
+    transition: var(--transition-duration);
+    border-bottom: solid var(--main-accent-color) 2px;
+}
+
+.mobile-navbar a:hover,
+.mobile-navbar a:hover {
+    color: var(--main-interactible-color);
+}
+
+.mobile-navbar ul li:last-child a {
+    border-bottom: none;
+}
+
+.mobile-navbar .nav-icon {
+    scale: 1.3;
+}
+
+.mobile-navbar .nav-icon-text {
+    margin-left: 7.5px;
+}
+
+#MobileNavBarOpen {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/* --- COPYRIGHT --- */
+
+#CopyrightSection {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    color: var(--main-text-accent-color);
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity ease-in 0.15s;
+}
+
+#CopyRightIcon {
+    color: var(--main-interactible-color);
+}
+
+#CopyrightLink {
+    color: var(--main-interactible-color);
+    font-weight: bold;
+    text-decoration: none;
+}
