@@ -1,35 +1,4 @@
-from enum import Enum
-from flask import Flask, render_template
-
-class ProgrammingLanguage(Enum):
-    MARKUP    =  'markup',
-    HTML      =  MARKUP,
-    XML       =  MARKUP,
-    SVG       =  MARKUP,
-    MATHML    =  MARKUP,
-    SSML      =  MARKUP,
-    ATOM      =  MARKUP,
-    RSS       =  MARKUP,
-    CSS       =  'css',
-    BASH      =  'bash',
-    SHELL     =  BASH,
-    C         =  'c',
-    CSHARP    =  'csharp',
-    CPP       =  'cpp',
-    CMAKE     =  'cmake',
-    GLSL      =  'glsl',
-    HLSL      =  'hlsl',
-    JAVA      =  'java',
-    JSON      =  'json5',
-    LUA       =  'lua',
-    MAKEFILE  =  'makefile',
-    MARKDOWN  =  'markdown',
-    PYTHON    =  'python',
-    REGEX     =  'regex',
-    RUST      =  'rust',
-    SQL       =  'sql',
-    SYSTEMD   =  'systemd',
-    YAML      =  'yaml'
+from flask import Flask, render_template, make_response
 
 class Page:
     __htmlFilePath = ''
@@ -64,3 +33,6 @@ class Page:
 
     def GetRenderTemplate(self):
         return render_template(self.__htmlFilePath, **self.__variablesDictionary)
+
+    def GetResponse(self):
+        return make_response(self.GetRenderTemplate())

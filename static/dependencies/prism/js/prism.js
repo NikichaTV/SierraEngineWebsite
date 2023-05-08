@@ -1439,7 +1439,7 @@ Prism.languages.sql = {
                 copy: "Copy",
                 "copy-error": "Press Ctrl+C to copy",
                 "copy-success": "Copied!",
-                "copy-timeout": 5e3
+                "copy-timeout": 750
             };
             for (var o in e) {
                 for (var n = "data-prismjs-" + o, c = t; c && !c.hasAttribute(n);) c = c.parentElement;

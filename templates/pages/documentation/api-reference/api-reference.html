@@ -1,0 +1,80 @@
+{% extends 'pages/shared.html' %}
+
+{% block shared_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/Documentation/API-Reference/api-reference.css') }}">
+{% endblock %}
+
+{% block navbar_icon_additions %}
+    <i id="DocumentationSidebarToggler" class="fas fa-bars"></i>
+{% endblock %}
+
+{% block navbar_link_additions %}
+    <form id="DocumentationSearchForm" class="autocomplete-form">
+        <input id="DocumentationSearchInput" type="text" placeholder="Search the docs..." class="form-control-plaintext" name="search" data-prefetch="{{ url_for('static', filename='data/documentation/search-autocomplete.json') }}">
+        <button id="DocumentationSearchButton" type="submit" class="btn" value="DocumentationSearch"><i class="fas fa-search"></i></button>
+    </form>
+{% endblock %}
+
+{% set NavBarTab = 'Documentation' %}
+{% block shared_body %}
+    <div>
+	    <div id="DocumentationSidebar">
+            {% macro DisplayNamespace(namespace, iteration = 0) %}
+                {% if iteration != 0 %}
+                    <div class="documentation-namespace-tab {% if iteration == 1 %} documentation-origin {% endif %}" expanded="false">
+                        <div class="documentation-namespace-dropdown">
+                            <i class="fas fa-caret-down"></i>
+                            <p class="documentation-namespace-title">{{ namespace.GetName() }}</p>
+                        </div>
+
+                        {% if namespace.GetClassCount() > 0 or namespace.GetNamespaceCount() > 0 %}
+                            <div class="documentation-namespace-information">
+                                {% if namespace.GetClassCount() > 0 %}
+                                    <div class="documentation-classes-information">
+                                        {% for i in range(namespace.GetClassCount()) %}
+                                            <p class="documentation-classes-information-name" id="{{ namespace.GetClass(i) }}Node" href="/Documentation/API-Reference/{{ namespace.GetClass(i) }}">{{ namespace.GetClass(i) }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                {% for i in range(namespace.GetNamespaceCount()) %}
+                                    {{ DisplayNamespace(namespace.GetNamespace(i), iteration + 1) }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {% for i in range(namespace.GetNamespaceCount()) %}
+                        {{ DisplayNamespace(namespace.GetNamespace(i), iteration + 1) }}
+                    {% endfor %}
+                {% endif %}
+
+            {% endmacro %}
+
+            {{ DisplayNamespace(apiStructure.GetBaseNamespace()) }}
+	    </div>
+	    <div id="DocumentationContent">
+		    <div class="container-fluid">
+                <article id="DocumentationNotFound" class="documentation-article">
+                    <header id="DocumentationNotFound" class="fa-bounce">
+                        <h1 class="article-heading">Uh-oh... docs not found!</h1>
+                        <p class="article-description">I hate to be the one telling you this, but it looks like the docs you requested to see <span class="documentation-not-found-strong">are not yet uploaded</span>, or better yet - simply <span class="documentation-not-found-strong">do not exist</span>... Sorry for that! I promise a fix is on the way!</p>
+                    </header>
+                </article>
+
+                <article id="API-ReferenceArticle" class="documentation-article">
+                    <header>
+                        <h1 class="article-heading">Introduction</h1>
+                        <p class="article-description">Introducing text here</p>
+                    </header>
+                </article>
+
+                {% for i in range(classData.GetClassCount()) %}
+                    {{ classData.GetClass(i).GetHTML() | safe }}
+                {% endfor %}
+		    </div>
+	    </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='pages/Documentation/API-Reference/api-reference.js') }}"></script>
+{% endblock %}

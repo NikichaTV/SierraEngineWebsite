@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <meta id="ThemeColor" name="theme-color" content="">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/logos/SierraLogo.svg') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dependencies/prism/css/prism-custom-theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pages/shared.css') }}">
+
+    {% block shared_head %}{% endblock %}
+{% endblock %}
+
+{% block body %}
+    {# --- NAVBAR --- #}
+    <header id="Header" class="fixed-top shadow-sm">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-between px-lg-4 px-xl-1">
+            <div class="align-items-start d-flex">
+            {% block navbar_icon_additions %} {% endblock %}
+                <a href="/" class="logo">
+                    <img src="{{ url_for('static', filename='assets/logos/SierraLogoTextDark.png') }}" alt="Nav Bar Sierra Logo">
+                </a>
+            </div>
+                <nav id="NavBar" expanded="false" class="navbar justify-content-around">
+                    <ul id="NavBarList">
+                        <li id="MobileNavBarClose"><i class="mobile-navbar-only clickable fa fa-close"></i></li>
+                        <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+                            {% block navbar_link_additions %} {% endblock %}
+                        </div>
+                        <li><a class="nav-link {% if NavBarTab == 'Home'          %} active {% endif %}" href="#Top">Home</a></li>
+                        <li><a class="nav-link {% if NavBarTab == 'Features'      %} active {% endif %}" href="/">Features</a></li>
+                        <li><a class="nav-link {% if NavBarTab == 'Documentation' %} active {% endif %}" href="/Documentation/">Documentation</a></li>
+                        <li><a class="nav-link {% if NavBarTab == 'Team'          %} active {% endif %}" href="/">Team</a></li>
+                        <li><a class="nav-link" href="/"><i class="nav-icon fab fa-circle fa-github"></i><span class="nav-icon-text">Source Code</span></a></li>
+                    </ul>
+            </nav>
+            <i id="MobileNavBarOpen" class="fa-solid fa-list-ul"></i>
+        </div>
+    </header>
+
+    <div class="mb-5 pb-4" id="Top"></div>
+
+    {% block shared_body %}{% endblock %}
+
+    {# --- COPYRIGHT --- #}
+    <footer id="CopyrightSection" class="section mb-2">
+        Made with <span class="sr-only">love</span><i id="CopyRightIcon" class="fas fa-heart"></i> by <a id="CopyrightLink" href="/" target="_blank">Nikolay Kanchevski</a>
+    </footer>
+
+    <script src="{{ url_for('static', filename='/pages/shared.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap/js/bootstrap-autocomplete.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='dependencies/fontawesome/js/all.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/prism/js/prism.js') }}"></script>
+{% endblock %}

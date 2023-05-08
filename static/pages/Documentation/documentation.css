@@ -10,15 +10,16 @@ body {
 }
 
 #DocumentationHeading {
-    font-size: 2.2rem;
-    font-weight: bold;
     color: var(--main-text-color);
+    font: var(--main-text-font);
+    margin-bottom: 5px;
+    font-size: 2.2rem;
 }
 
 #DocumentationSubheading {
-    font-size: 1rem;
-    font-weight: normal;
     color: var(--main-text-accent-color);
+    font: var(--main-text-accent-font);
+    font-size: 1rem;
 }
 
 #DocumentationSearchForm {
@@ -27,23 +28,10 @@ body {
 }
 
 #DocumentationSearchInput {
-    position: relative;
-    font-size: 0.875rem;
-    border-radius: 0.8rem;
-    padding-right: 2.6rem;
-    padding-left: 1.5rem;
-    height: 2.5rem;
-    transition-duration: 0.15s;
-
-    border-color: solid var(--main-accent-color);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    font: var(--main-text-accent-font);
+    font-size: 0.85rem;
     color: var(--main-text-accent-color);
-    background-color: white;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, scale ease-in-out;
 }
-
 #DocumentationSearchInput:focus {
     border-color: var(--main-text-accent-color);
     outline: 0;
@@ -88,8 +76,8 @@ body {
 
 #CardsSectionHeading {
     color: var(--main-text-color);
+    font: var(--main-text-font);
     font-size: 1.7rem;
-    font-weight: bold;
 }
 
 .cards-section-card-icon {
@@ -124,10 +112,14 @@ body {
 }
 
 .cards-section-card-title {
-    font-size: 1.2rem;
     color: var(--main-text-color);
+    font: var(--main-text-font);
+    font-size: 1.2rem;
+    /*-webkit-text-stroke-width: 0.3px;*/
 }
 
 .cards-section-card-text {
     color: var(--main-text-accent-color);
+    font: var(--main-text-accent-font);
+    font-size: 1rem;
 }

@@ -2,9 +2,9 @@
 https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+aspnet+bash+c+csharp+cpp+cmake+glsl+hlsl+java+json+json5+lua+makefile+markdown+python+regex+rust+sql+systemd+yaml&plugins=line-numbers+highlight-keywords+toolbar+copy-to-clipboard+match-braces+treeview */
 code[class*=language-], pre[class*=language-] {
     color: #ccc;
-    background: 0 0;
     font-family: Inter, sans-serif;
-    font-size: 1em;
+    font: var(--main-code-block-font);
+    font-size: 0.9em;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
@@ -23,73 +23,122 @@ code[class*=language-], pre[class*=language-] {
 pre[class*=language-] {
     padding: 1em;
     margin: .5em 0;
-    overflow: auto
+    overflow: auto;
 }
 
 :not(pre) > code[class*=language-], pre[class*=language-] {
-    background: #1e1f22
+    border: var(--main-border);
+    border-radius: 0.6rem;
+    color: #a4b2c0;
+    font: var(--main-text-font);
+    font-weight: 350;
+}
+
+@media (prefers-color-scheme: light) {
+    pre[class*=language-] {
+        background-color: #ffffff;
+    }
+
+    pre[class*=language-] code {
+        color: #1C1C1C;
+    }
+
+    .token.block-comment, .token.cdata, .token.comment, .token.doctype, .token.prolog {
+        color: #8D8D8D;
+    }
+
+    .token.punctuation, .token.entity, .token.operator, .token.url {
+        color: #575757 !important;
+    }
+
+    .token.function-name {
+        color: #108888
+    }
+
+    .token.function {
+        color: #108888
+    }
+
+    .token.boolean {
+        color: #0234B4
+    }
+
+    .token.number {
+        color: #4C77EF
+    }
+
+    .token.class-name {
+        color: #4C77EF
+    }
+
+    .token.atrule, .token.builtin, .token.important, .token.keyword, .token.selector {
+        color: #0538B4
+    }
+
+    .token.string, .token.char, .token.regex {
+        color: #087F18
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    pre[class*=language-] {
+        background: #1e1f22;
+    }
+
+    pre[class*=language-] code {
+        color: #d0d0d0;
+    }
+
+    .token.block-comment, .token.cdata, .token.comment, .token.doctype, .token.prolog {
+        color: #808080
+    }
+
+    .token.punctuation, .token.entity, .token.operator, .token.url {
+        color: #949494;
+    }
+
+    .token.function-name {
+        color: #ffc66d
+    }
+
+    .token.function {
+        color: #ffc66d
+    }
+
+    .token.boolean {
+        color: #cb7832
+    }
+
+    .token.number {
+        color: #6796ba
+    }
+
+    .token.class-name {
+        color: #b5b6e2
+    }
+
+    .token.atrule, .token.builtin, .token.important, .token.keyword, .token.selector {
+        color: #cb7832
+    }
+
+    .token.string, .token.char, .token.regex {
+        color: #668256
+    }
+}
+
+code[class*=language-], pre[class*=language-], pre[class*=language-] span {
+    -webkit-touch-callout: default;
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
 }
 
 :not(pre) > code[class*=language-] {
     padding: .1em;
     border-radius: .3em;
     white-space: normal
-}
-
-.token.block-comment, .token.cdata, .token.comment, .token.doctype, .token.prolog {
-    color: #808080
-}
-
-.token.punctuation {
-    color: #a7b5c2
-}
-
-.token.attr-name, .token.deleted, .token.namespace, .token.tag {
-    color: #a1afbc
-}
-
-.token.function-name {
-    color: #ffc66d
-}
-
-.token.function {
-    color: #ffc66d
-}
-
-.token.boolean {
-    color: #cb7832
-}
-
-.token.constant {
-    color: #cb7832
-}
-
-.token.number {
-    color: #6796ba
-}
-
-.token.property, .token.symbol {
- color: #b1ac28
-}
-
-.token.class-name {
-    color: #b5b6e2
-}
-
-.token.atrule, .token.builtin, .token.important, .token.keyword, .token.selector {
-    color: #cb7832
-}
-
-.token.string, .token.char, .token.regex {
-    color: #668256
-}
-
-.token.attr-value, .token.variable {
-    color: #668256
-}
-
-.token.entity, .token.operator, .token.url {
-    color: #a1afbc
 }
 
 .token.bold, .token.important {
@@ -328,4 +377,17 @@ div.code-toolbar > .toolbar > .toolbar-item > a:focus, div.code-toolbar > .toolb
 
 .token.treeview-part .entry-name.ext-pps:before, .token.treeview-part .entry-name.ext-ppt:before, .token.treeview-part .entry-name.ext-pptx:before {
     content: "\ea0b"
+}
+
+.toolbar-item {
+    width: 5rem;
+    margin-top: 0.1rem;
+    margin-right: 0.2rem;
+}
+
+.copy-to-clipboard-button {
+    width: 100%;
+    height: 2rem;
+    background-color: var(--main-accent-color) !important;
+    color: var(--main-text-accent-color) !important;
 }

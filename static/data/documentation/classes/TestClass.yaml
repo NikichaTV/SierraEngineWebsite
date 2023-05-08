@@ -1,0 +1,12 @@
+- !DocumentedClass
+  name: "TestClass"
+  description: "Some description Some description Some description Some description Some description Some description Some description"
+  sections:
+
+    - !Section
+      title: "Miscellaneous Stuff"
+      description: "Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id."
+      elements:
+        - !CodeSnippet
+          title: "Code Example"
+          code: "pip install SierraEngine"

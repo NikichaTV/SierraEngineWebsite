@@ -1,13 +1,32 @@
 :root {
     scroll-behavior: smooth;
+
+    --bs-small: 576px;
+    --bs-medium: 768px;
+    --bs-large: 992px;
+    --bs-extra-large: 1200px;
+}
+
+*:not(input) {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+* {
+    zoom: 100%;
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .debug {
-    background-color: red;
+    color: white !important;
+    background-color: red !important;
 }
 
 .on-top {
