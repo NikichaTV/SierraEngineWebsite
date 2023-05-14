@@ -288,7 +288,8 @@ body {
 .autocomplete-form .dropdown-menu .dropdown-item {
     font: var(--main-text-accent-font);
     font-size: 0.9rem;
-    color: var(--main-text-accent-color)
+    color: var(--main-text-accent-color);
+    border: none;
 }
 
 .autocomplete-form .dropdown-menu .dropdown-item:is(.active),

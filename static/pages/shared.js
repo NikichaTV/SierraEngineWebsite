@@ -125,6 +125,16 @@ function SubmitDocumentationSearch(form)
             {
                 LoadNode(search);
                 form.search.value = '';
+
+                if (navbar.getAttribute('expanded') === 'true')
+                {
+                    MoveNavbar(false, function() {
+                        navbar.classList.add('navbar');
+                        navbar.classList.remove('mobile-navbar');
+                    });
+
+                    ToggleAttribute($(navbar), 'expanded');
+                }
             }
         }
 	}

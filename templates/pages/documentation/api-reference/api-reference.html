@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block navbar_link_additions %}
-    <form id="DocumentationSearchForm" class="autocomplete-form" onsubmit="SubmitDocumentationSearch(this); return false;">
+    <form id="DocumentationSearchForm" class="autocomplete-form" autocomplete="off" onsubmit="SubmitDocumentationSearch(this); return false;">
         <input id="DocumentationSearchInput" type="text" placeholder="Search the docs..." class="form-control-plaintext" name="search" data-prefetch="{{ url_for('static', filename='data/documentation/search-autocomplete.json') }}">
         <div id="DocumentationSearchButton"><i class="fas fa-search"></i></div>
     </form>
