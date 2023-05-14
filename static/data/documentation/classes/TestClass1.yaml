@@ -1,6 +1,9 @@
 - !DocumentedClass
   name: "TestClass1"
+  namespace: "SomeNamespace.OtherNamespace"
   description: "Some description Some description Some description Some description Some description Some description Some description"
+  lastUpdateDate: "08.05.2009"
+
   sections:
 
     - !Section
@@ -109,4 +112,3 @@
             - [ '#', 'First', 'Last', 'Handle' ]
             - [ '#', 'First', 'Last', 'Handle' ]
             - [ '#', 'First', 'Last', 'Handle' ]
-

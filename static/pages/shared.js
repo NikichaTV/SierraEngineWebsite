@@ -1,33 +1,33 @@
 const navbar = document.getElementById('NavBar');
 const navbarList = document.getElementById('NavBarList');
 
+/* --- GENERAL --- */
+
 $(document).ready(function()
 {
     $('.autocomplete-form input').autocomplete({
         maxResult: 5
     })
 
+    $('.autocomplete-form .dropdown-menu').on('click', function(event) {
+        $(event.target).submit();
+    });
+
     $(document).on('click', '#MobileNavBarClose', function()
     {
-        // navbarList.animate([{ transform: 'translateX(-10vw)'}, { transform: 'translateX(10vw)' }], { duration: 350, iterations: 1, easing: 'ease-in-out' }).onfinish = (event) =>
-        // {
-
-            MoveSidebar(false, function() {
-                navbar.classList.add('navbar');
-                navbar.classList.remove('mobile-navbar');
-            });
-        // }
+        MoveNavbar(false, function() {
+            navbar.classList.add('navbar');
+            navbar.classList.remove('mobile-navbar');
+        });
         ToggleAttribute($(navbar), 'expanded');
     });
 
     $(document).on('click', '#MobileNavBarOpen', function()
     {
-            navbar.classList.add('mobile-navbar');
-            navbar.classList.remove('navbar');
-            MoveSidebar(open, null);
-        // navbarList.animate([{ transform: 'translateX(10vw)'}, { transform: 'translateX(-10vw)' }], { duration: 350, iterations: 1, easing: 'ease-in-out' }).onfinish = (event) => {
-        //
-        // }
+        navbar.classList.add('mobile-navbar');
+        navbar.classList.remove('navbar');
+
+        MoveNavbar(open, null);
         ToggleAttribute($(navbar), 'expanded');
     });
 
@@ -49,8 +49,9 @@ $(document).ready(function()
     });
 });
 
-var id = null;
-function MoveSidebar(open, onfinish) {
+
+function MoveNavbar(open, onfinish)
+{
     const SPEED = 2;
 
     let target, right;
@@ -65,8 +66,7 @@ function MoveSidebar(open, onfinish) {
         right = 0
     }
 
-    clearInterval(id);
-    id = setInterval(frame, Number.EPSILON);
+    let id = setInterval(frame, Number.EPSILON);
     function frame()
     {
         if (right === target)
@@ -105,4 +105,51 @@ function CheckFooter()
 {
     if ($(window).scrollTop() + $(window).height() >= $(document).height() - $(document).height() / 63.0) copyrightSection.style.opacity = '1.0'; // Scrolled to bottom
     else copyrightSection.style.opacity = '0.0';
+}
+
+/* --- SPECIFIC --- */
+
+function SubmitDocumentationSearch(form)
+{
+    let search = form.search.value;
+	if (search !== '')
+	{
+        let autocompleteMenu = $(form).find('.dropdown-menu');
+        if (Exists(autocompleteMenu) && autocompleteMenu.children().length > 0)
+        {
+            if (!location.href.includes('API-Reference'))
+            {
+                location.href = '/Documentation/API-Reference/' + search;
+            }
+            else
+            {
+                LoadNode(search);
+                form.search.value = '';
+            }
+        }
+	}
+
+	return false;
+}
+
+const dateFormatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+function FormatDateDifference(date)
+{
+    let dayCount = Math.abs(Math.floor(date / 86400000));
+    if (dayCount <= 30)
+    {
+        return dateFormatter.format(Math.round(date / 86400000), 'day');
+    }
+    else
+    {
+        let monthCount = Math.abs(Math.floor(date / 2678400000));
+        if (monthCount <= 12)
+        {
+            return dateFormatter.format(Math.round(date / 2678400000), 'month');
+        }
+        else
+        {
+            return dateFormatter.format(Math.round(date / 31536000000), 'year');
+        }
+    }
 }

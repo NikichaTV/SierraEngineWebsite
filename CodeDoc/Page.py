@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response
+from flask import render_template, make_response
 
 class Page:
     __htmlFilePath = ''

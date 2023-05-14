@@ -32,6 +32,8 @@
 }
 
 #DocumentationSearchButton {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
     color: var(--main-text-accent-color);
     background: none;
     border: none;
@@ -45,11 +47,6 @@
 .mobile-navbar #DocumentationSearchButton {
     right: 25px;
     top: 0.8rem;
-}
-
-#DocumentationSearchButton:hover {
-    color: var(--main-text-accent-color);
-    scale: 1.2;
 }
 
 #DocumentationSidebarToggler {
@@ -196,9 +193,6 @@
     font: var(--main-text-accent-font);
     scroll-margin-top: 69px;
     scroll-snap-margin-top: 69px;
-}
-
-.documentation-article {
     font-size: 3rem;
     margin-bottom: 2rem;
     position: relative;
@@ -564,4 +558,62 @@ tbody :last-child:is(tr) :first-child {
 
 tbody :last-child:is(tr) :last-child {
     border-bottom-right-radius: 0.7rem;
+}
+
+#RateArticle {
+    display: block;
+    margin-top: -2rem;
+    padding-top: 0;
+}
+
+#ArticleFooter {
+    margin-top: -1rem !important;
+    font: var(--main-text-accent-font);
+    font-size: 1.1rem;
+    min-width: 100%;
+}
+
+.rate-icon {
+    margin-left: 1rem;
+    border-radius: 7px;
+    padding: 4px;
+    color: var(--main-interactible-color);
+    background: var(--theme-shadow-color);
+    transition: color var(--main-transition), scale var(--main-transition);
+    transition-duration: calc(var(--transition-duration) / 2);
+}
+
+#ArticleFooterRatingWrapper svg:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+#BadRateIcon:hover {
+    color: var(--bs-danger);
+}
+
+#AverageRateIcon:hover {
+    color: var(--bs-warning);
+}
+
+#GoodRateIcon:hover {
+    color: var(--bs-success);
+}
+
+#ArticleFooterTitleMobile {
+    display: none;
+}
+
+@media (max-width: 630px) {
+    #ArticleFooterModifiedWrapper {
+        display: none;
+    }
+
+    #ArticleFooterTitle {
+        display: none;
+    }
+
+    #ArticleFooterTitleMobile {
+        display: block;
+    }
 }

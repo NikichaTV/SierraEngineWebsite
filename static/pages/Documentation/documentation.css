@@ -23,6 +23,8 @@ body {
 }
 
 #DocumentationSearchForm {
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
     width: 70%;
 }
@@ -51,6 +53,8 @@ body {
 }
 
 #DocumentationSearchButton {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
     color: var(--main-text-accent-color);
     background: none;
     border: none;
@@ -59,10 +63,6 @@ body {
     top: 0.1rem;
     margin-right: 0;
     transiton: scale ease-in-out 0.15s;
-}
-
-#DocumentationSearchButton:hover {
-    scale: 1.2;
 }
 
 /* --- CARDS SECTION --- */
@@ -84,18 +84,7 @@ body {
     padding: 4px;
     border-radius: 7px;
     color: var(--main-interactible-color);
-}
-
-@media (prefers-color-scheme: light) {
-    .cards-section-card-icon {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .cards-section-card-icon {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+    background-color: var(--theme-shadow-color);
 }
 
 .cards-section-card-base {
@@ -115,7 +104,7 @@ body {
     color: var(--main-text-color);
     font: var(--main-text-font);
     font-size: 1.2rem;
-    /*-webkit-text-stroke-width: 0.3px;*/
+    /*font-weight: lighter;*/
 }
 
 .cards-section-card-text {

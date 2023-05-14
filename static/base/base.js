@@ -89,15 +89,26 @@ function ToggleAttribute(element, attributeName)
     }
 }
 
-function SetCookie(cname, cvalue, exdays = 1000)
+function AreCookiesAllowed()
 {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    return navigator.cookieEnabled;
 }
 
-function GetCookie(cname)
+function GetPositionOfElementInNormalizedScreenSpace(element)
 {
-  return document.cookie.match('(^|;)\\s*' + cname + '\\s*=\\s*([^;]+)')?.pop() || '';
+	// Get the element's offset position relative to the document
+	const offset = element.offset();
+
+	// Calculate the element's position relative to the viewport
+	const top = offset.top - $(window).scrollTop();
+	const left = offset.left - $(window).scrollLeft();
+
+	// Calculate the normalized coordinates
+	const viewportWidth = $(window).width();
+	const viewportHeight = $(window).height();
+	const x = left / viewportWidth;
+	const y = top / viewportHeight;
+
+	// Return the normalized coordinates as an object
+	return { x, y };
 }

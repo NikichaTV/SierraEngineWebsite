@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block navbar_link_additions %}
-    <form id="DocumentationSearchForm" class="autocomplete-form">
+    <form id="DocumentationSearchForm" class="autocomplete-form" onsubmit="SubmitDocumentationSearch(this); return false;">
         <input id="DocumentationSearchInput" type="text" placeholder="Search the docs..." class="form-control-plaintext" name="search" data-prefetch="{{ url_for('static', filename='data/documentation/search-autocomplete.json') }}">
-        <button id="DocumentationSearchButton" type="submit" class="btn" value="DocumentationSearch"><i class="fas fa-search"></i></button>
+        <div id="DocumentationSearchButton"><i class="fas fa-search"></i></div>
     </form>
 {% endblock %}
 
@@ -27,7 +27,7 @@
                             <p class="documentation-namespace-title">{{ namespace.GetName() }}</p>
                         </div>
 
-                        {% if namespace.GetClassCount() > 0 or namespace.GetNamespaceCount() > 0 %}
+                        {% if namespace.GetClassCount() > 0 or namespace.GetChildNamespaceCount() > 0 %}
                             <div class="documentation-namespace-information">
                                 {% if namespace.GetClassCount() > 0 %}
                                     <div class="documentation-classes-information">
@@ -37,21 +37,21 @@
                                     </div>
                                 {% endif %}
 
-                                {% for i in range(namespace.GetNamespaceCount()) %}
-                                    {{ DisplayNamespace(namespace.GetNamespace(i), iteration + 1) }}
+                                {% for i in range(namespace.GetChildNamespaceCount()) %}
+                                    {{ DisplayNamespace(namespace.GetChildNamespace(i), iteration + 1) }}
                                 {% endfor %}
                             </div>
                         {% endif %}
                     </div>
                 {% else %}
-                    {% for i in range(namespace.GetNamespaceCount()) %}
-                        {{ DisplayNamespace(namespace.GetNamespace(i), iteration + 1) }}
+                    {% for i in range(namespace.GetChildNamespaceCount()) %}
+                        {{ DisplayNamespace(namespace.GetChildNamespace(i), iteration + 1) }}
                     {% endfor %}
                 {% endif %}
 
             {% endmacro %}
 
-            {{ DisplayNamespace(apiStructure.GetBaseNamespace()) }}
+            {{ DisplayNamespace(classData.GetRootNamespace()) }}
 	    </div>
 	    <div id="DocumentationContent">
 		    <div class="container-fluid">
@@ -72,6 +72,24 @@
                 {% for i in range(classData.GetClassCount()) %}
                     {{ classData.GetClass(i).GetHTML() | safe }}
                 {% endfor %}
+                <article id="RateArticle" class="documentation-article">
+                    <section class="article-section">
+                        <div id="ArticleFooter" class="d-flex justify-content-between">
+                            <div id="ArticleFooterModifiedWrapper">
+                                <p id="ArticleFooterModifyTime">Last modified:</p>
+                            </div>
+                            <div id="ArticleFooterTitleMobile">
+                                <p>Was this page useful?</p>
+                            </div>
+                            <div id="ArticleFooterRatingWrapper" class="d-flex">
+                                <p id="ArticleFooterTitle">Was this page useful?</p>
+                                <i id="BadRateIcon" class="fas fa-face-angry rate-icon confetti-button"></i>
+                                <i id="AverageRateIcon" class="fas fa-face-meh rate-icon confetti-button"></i>
+                                <i id="GoodRateIcon" class="fas fa-face-laugh-beam rate-icon confetti-button"></i>
+                            </div>
+                        </div>
+                    </section>
+                </article>
 		    </div>
 	    </div>
     </div>

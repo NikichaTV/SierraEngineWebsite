@@ -1,0 +1,48 @@
+#Heading {
+    font: var(--main-text-font);
+    color: var(--main-text-color);
+    font-size: 3.5rem;
+}
+
+#Description {
+    position: relative;
+    font: var(--main-text-accent-font);
+    color: var(--main-text-accent-color);
+    font-size: 1.5rem;
+    z-index: 2;
+}
+
+#Description a {
+    color: var(--main-interactible-color);
+    font-size: 1.55rem;
+}
+
+#Error404Animation {
+    position: fixed;
+    margin-top: -2rem !important;
+    height: 80vh;
+    z-index: 1;
+}
+
+@media (max-width: 992px) {
+    #Heading {
+        font-size: 2.5rem;
+    }
+
+    #Description {
+        font-size: 1rem;
+    }
+
+    #Description a {
+        font-size: 1.05rem;
+    }
+
+    #Error404Animation {
+    }
+}
+
+@media (max-width: 414px) {
+    #Error404Animation {
+        margin-top: -5rem !important;
+    }
+}

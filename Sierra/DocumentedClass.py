@@ -30,18 +30,12 @@ class DocumentedClassSection(DocumentedClassElement):
         return self.__htmlCode
 
 
-def DocumentedClassSectionConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassSection:
-    return DocumentedClassSection(**loader.construct_mapping(node))
-
 class DocumentedClassParagraph(DocumentedClassElement):
 
     def __init__(self, text: str):
         self._htmlCode += f"""
             <p class="section-paragraph">{ text }</p>
         """
-
-def DocumentedClassParagraphConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassParagraph:
-    return DocumentedClassParagraph(**loader.construct_mapping(node))
 
 class DocumentedClassUnorderedList(DocumentedClassElement):
 
@@ -58,9 +52,6 @@ class DocumentedClassUnorderedList(DocumentedClassElement):
             </ul>
         """
 
-def DocumentedClassUnorderedListConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassUnorderedList:
-    return DocumentedClassUnorderedList(**loader.construct_mapping(node))
-
 class DocumentedClassOrderedList(DocumentedClassElement):
 
     def __init__(self, title: str, elements: list[str]):
@@ -76,9 +67,6 @@ class DocumentedClassOrderedList(DocumentedClassElement):
             </ol>
         """
 
-def DocumentedClassOrderedListConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassOrderedList:
-    return DocumentedClassOrderedList(**loader.construct_mapping(node))
-
 class DocumentedClassCodeSnippet(DocumentedClassElement):
 
     def __init__(self, title: str, code: str):
@@ -89,9 +77,6 @@ class DocumentedClassCodeSnippet(DocumentedClassElement):
         self._htmlCode = f"""
             <h5>{ title }: <code>{ code }</code></h5>
         """
-
-def DocumentedClassCodeSnippetConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassCodeSnippet:
-    return DocumentedClassCodeSnippet(**loader.construct_mapping(node))
 
 class DocumentedClassCodeBlock(DocumentedClassElement):
     __cssLanguageTable: dict[str, str] = \
@@ -135,9 +120,6 @@ class DocumentedClassCodeBlock(DocumentedClassElement):
             <pre class="shadow"><code class="language-{ self.__cssLanguageTable[language] }">{ code }</code></pre>
         """
 
-def DocumentedClassCodeBlockConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassCodeBlock:
-    return DocumentedClassCodeBlock(**loader.construct_mapping(node))
-
 class DocumentedClassCalloutBlock(DocumentedClassElement):
 
     __cssTypeTable: dict[str, str] = \
@@ -164,9 +146,6 @@ class DocumentedClassCalloutBlock(DocumentedClassElement):
             </div>
         """
 
-def DocumentedClassCalloutBlockConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassCalloutBlock:
-    return DocumentedClassCalloutBlock(**loader.construct_mapping(node))
-
 class DocumentedClassProgressBar(DocumentedClassElement):
 
     def __init__(self, value: float):
@@ -175,9 +154,6 @@ class DocumentedClassProgressBar(DocumentedClassElement):
               <div class="progress-bar bg-success" style="width: { float(value) * 100.0 }%"></div>
             </div>
         """
-
-def DocumentedClassProgressBarConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassProgressBar:
-    return DocumentedClassProgressBar(**loader.construct_mapping(node))
 
 class DocumentedClassTable(DocumentedClassElement):
 
@@ -219,20 +195,22 @@ class DocumentedClassTable(DocumentedClassElement):
             </table>
         """
 
-def DocumentedClassTableConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClassTable:
-    return DocumentedClassTable(**loader.construct_mapping(node))
-
 class DocumentedClass:
     __name: str = None
+    __namespace: str = None
+    __lastUpdateDate: str = None
+
     __htmlCode: str = ''
 
-    def __init__(self, name: str, description: str, sections: list[DocumentedClassSection]):
+    def __init__(self, name: str, namespace: str, description: str, lastUpdateDate: str, sections: list[DocumentedClassSection]):
         self.__name = name
+        self.__namespace = namespace
+        self.__lastUpdateDate = lastUpdateDate
 
         self.__htmlCode += f"""
             <article id="{ name }Article" class="documentation-article">
                 <header>
-                    <h1 class="article-heading">{ name }<span class="docs-time">Last updated: 2019-06-01</span></h1>
+                    <h1 class="article-heading">{ name }<span class="docs-time">Last updated: { lastUpdateDate }</span></h1>
                     <p class="article-description">{ description }</p>
                 </header>
         """
@@ -246,35 +224,131 @@ class DocumentedClass:
 
     def GetName(self) -> str:
         return self.__name
+
+    def GetNamespaceName(self) -> str:
+        return self.__namespace
+
     def GetHTML(self):
         return self.__htmlCode
 
-def DocumentedClassConstructorYAML(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> DocumentedClass:
-    return DocumentedClass(**loader.construct_mapping(node))
+class DocumentedNamespace:
+    __name: str = None
+    __classes: list[str] = None
+    __childNamespaces: list = None
+
+    def __init__(self, name):
+        self.__name = name
+        self.__classes = []
+        self.__childNamespaces = []
+
+    def GetName(self):
+        return self.__name
+
+    def AddChildNamespace(self, child):
+        self.__childNamespaces.append(child)
+
+    def GetChildNamespaceCount(self) -> int:
+        return len(self.__childNamespaces) if self.__childNamespaces is not None else 0
+
+    def GetChildNamespace(self, index: int):
+        return self.__childNamespaces[index]
+
+    def AddClass(self, className: str):
+        self.__classes.append(className)
+
+    def GetClassCount(self) -> int:
+        return len(self.__classes) if self.__classes is not None else 0
+
+    def GetClass(self, index: int) -> str:
+        return self.__classes[index]
+
+    def __eq__(self, other) -> bool:
+        return self.__name == other.__name
+
+    def __hash__(self) -> int:
+        return hash(self.__name)
+
+    @staticmethod
+    def CreateNamespaceTree(namespaces: list[tuple[str, str]]):
+        namespaceDictionary: dict[str, DocumentedNamespace] = {}
+        rootNamespaces: set[DocumentedNamespace] = set[DocumentedNamespace]()
+
+        fictionalRootNamespace: DocumentedNamespace = DocumentedNamespace('root')
+        for namespace, className in namespaces:
+            parts: list[str] = namespace.split('.')
+            parent: DocumentedNamespace = None
+
+            for i, part in enumerate(parts):
+                name: str = '.'.join(parts[:i + 1])
+
+                if name not in namespaceDictionary:
+                    newNamespace: DocumentedNamespace = DocumentedNamespace(part)
+                    if i == len(parts) - 1:
+                        newNamespace.AddClass(className)
+                    namespaceDictionary[name] = newNamespace
+
+                    if parent:
+                        parent.AddChildNamespace(newNamespace)
+                    else:
+                        rootNamespaces.add(newNamespace)
+
+                    parent = newNamespace
+                else:
+                    parent = namespaceDictionary[name]
+                    if i == len(parts) - 1:
+                        namespaceDictionary[name].AddClass(className)
+
+        for namespace in rootNamespaces:
+            fictionalRootNamespace.AddChildNamespace(namespace)
+
+        return fictionalRootNamespace
+
+    @staticmethod
+    def PrintNamespace(namespace, iteration: int = 0):
+        # return
+        print((' ' * iteration) + ('\'-' if iteration != 0 else '') + namespace.GetName())
+        for i in range(namespace.GetClassCount()):
+            print((' ' * iteration) + (' |-') + namespace.GetClass(i))
+
+        for i in range(namespace.GetChildNamespaceCount()):
+            DocumentedNamespace.PrintNamespace(namespace.GetChildNamespace(i), iteration + 1)
+
+def ConstructorYAML(T):
+    def Constructor(loader: yaml.BaseLoader, node: yaml.nodes.MappingNode) -> T:
+        return T(**loader.construct_mapping(node))
+
+    return Constructor
 
 class DocumentedClassesData:
-    __documentedClasses: list[list[DocumentedClass]] = []
     __jsonAutocompleteData: str = '['
+    __rootNamespace: DocumentedNamespace = None
+    __documentedClasses: list[list[DocumentedClass]] = []
 
     def __init__(self, yamlFolder: str):
         loader = yaml.BaseLoader
-        loader.add_constructor('!DocumentedClass', DocumentedClassConstructorYAML)
-        loader.add_constructor('!Section', DocumentedClassSectionConstructorYAML)
-        loader.add_constructor('!Paragraph', DocumentedClassParagraphConstructorYAML)
-        loader.add_constructor('!CodeSnippet', DocumentedClassCodeSnippetConstructorYAML)
-        loader.add_constructor('!UnorderedList', DocumentedClassUnorderedListConstructorYAML)
-        loader.add_constructor('!OrderedList', DocumentedClassOrderedListConstructorYAML)
-        loader.add_constructor('!CodeBlock', DocumentedClassCodeBlockConstructorYAML)
-        loader.add_constructor('!CalloutBlock', DocumentedClassCalloutBlockConstructorYAML)
-        loader.add_constructor('!ProgressBar', DocumentedClassProgressBarConstructorYAML)
-        loader.add_constructor('!Table', DocumentedClassTableConstructorYAML)
+        loader.add_constructor('!DocumentedClass', ConstructorYAML(DocumentedClass))
+        loader.add_constructor('!Section', ConstructorYAML(DocumentedClassSection))
+        loader.add_constructor('!Paragraph', ConstructorYAML(DocumentedClassParagraph))
+        loader.add_constructor('!CodeSnippet', ConstructorYAML(DocumentedClassCodeSnippet))
+        loader.add_constructor('!UnorderedList', ConstructorYAML(DocumentedClassUnorderedList))
+        loader.add_constructor('!OrderedList', ConstructorYAML(DocumentedClassOrderedList))
+        loader.add_constructor('!CodeBlock', ConstructorYAML(DocumentedClassCodeBlock))
+        loader.add_constructor('!CalloutBlock', ConstructorYAML(DocumentedClassCalloutBlock))
+        loader.add_constructor('!ProgressBar', ConstructorYAML(DocumentedClassProgressBar))
+        loader.add_constructor('!Table', ConstructorYAML(DocumentedClassTable))
 
+        allNamespacesWithClasses: list[tuple[str, str]] = []
         dataFiles = [f for f in listdir(yamlFolder) if isfile(join(yamlFolder, f))]
+
+        self.__documentedClasses.clear()
         for dataFile in dataFiles:
             self.__documentedClasses.append(yaml.load(open(yamlFolder + dataFile, 'rb').read(), Loader=loader))
-            self.__jsonAutocompleteData += f'"{ self.__documentedClasses[-1][0].GetName() }",'
+            allNamespacesWithClasses.append((self.GetClass(-1).GetNamespaceName(), self.GetClass(-1).GetName()))
 
+            self.__jsonAutocompleteData += f'"{ self.__documentedClasses[-1][0].GetName() }",'
         self.__jsonAutocompleteData = self.__jsonAutocompleteData[:-1] + ']'
+
+        self.__rootNamespace = DocumentedNamespace.CreateNamespaceTree(allNamespacesWithClasses)
 
     def GetClassCount(self) -> int:
         return len(self.__documentedClasses)
@@ -282,5 +356,8 @@ class DocumentedClassesData:
     def GetClass(self, index) -> DocumentedClass:
         return self.__documentedClasses[index][0]
 
+    def GetRootNamespace(self) -> DocumentedNamespace:
+        return self.__rootNamespace
+
     def GetAutocompleteDataJSON(self) -> str:
-        return self.__jsonAutocompleteData;
+        return self.__jsonAutocompleteData

@@ -1,6 +1,9 @@
 - !DocumentedClass
   name: "TestClass"
+  namespace: "SomeNamespace"
   description: "Some description Some description Some description Some description Some description Some description Some description"
+  lastUpdateDate: "03.05.2023"
+
   sections:
 
     - !Section
